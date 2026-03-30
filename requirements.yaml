@@ -1,0 +1,13 @@
+packages:
+  "framer-motion": "For premium smooth entry animations and accordion transitions"
+  "clsx": "Utility for conditionally joining classNames"
+  "tailwind-merge": "Utility to merge Tailwind classes safely"
+
+images:
+  - path: "artifacts/alfa-sec/public/images/hero-bg.png"
+    description: "Abstract sophisticated geometric mesh in deep navy blue and charcoal gray, minimal, financial luxury, subtle gradient lighting"
+    aspect_ratio: "16:9"
+
+notes:
+  - This is a purely static institutional landing page, no backend integration required.
+  - Using framer-motion for smooth UI reveals that fit the premium financial brand.
