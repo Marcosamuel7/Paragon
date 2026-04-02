@@ -4,6 +4,7 @@ import { Thesis } from "@/components/sections/Thesis";
 import { Returns } from "@/components/sections/Returns";
 import { Liquidity } from "@/components/sections/Liquidity";
 import { TaxTable } from "@/components/sections/TaxTable";
+import { Tokenization } from "@/components/sections/Tokenization";
 import { Risks } from "@/components/sections/Risks";
 import { Faq } from "@/components/sections/Faq";
 import { Footer } from "@/components/sections/Footer";
@@ -18,6 +19,7 @@ export default function LandingPage() {
         <Returns />
         <Liquidity />
         <TaxTable />
+        <Tokenization />
         <Risks />
         <Faq />
       </main>

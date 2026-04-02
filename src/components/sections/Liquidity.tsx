@@ -1,30 +1,36 @@
 import { motion } from "framer-motion";
-import { Lock, ArrowRightLeft, AlertTriangle, ShieldCheck } from "lucide-react";
+import { Lock, ArrowRightLeft, AlertTriangle, ShieldCheck, Bell } from "lucide-react";
 
 export function Liquidity() {
   const rules = [
     {
       icon: <Lock className="w-6 h-6 text-navy-600" />,
-      title: "Carência Mínima",
-      description: "Período mínimo de carência de 2 anos, necessário para maturação dos ativos ilíquidos da carteira.",
+      title: "Período de Carência (2 Anos)",
+      description: "Bloqueio total de resgate por 2 anos (720 dias). Durante este período, não é possível solicitar resgate direto à Securitizadora.",
       alert: false
     },
     {
       icon: <ArrowRightLeft className="w-6 h-6 text-navy-600" />,
       title: "Mercado Secundário",
-      description: "O investidor pode negociar seu título diretamente com terceiros por livre negociação de valor e taxa, sem intermediação da Securitizadora.",
+      description: "Durante a carência, o investidor pode negociar seu título diretamente com terceiros por livre negociação de valor e taxa, sem intermediação da Securitizadora.",
       alert: false
     },
     {
       icon: <AlertTriangle className="w-6 h-6 text-amber-600" />,
-      title: "Recompra Antes da Carência",
-      description: "Sujeito à disponibilidade de caixa da empresa, com aplicação de 20% de deságio sobre o valor de face do título.",
+      title: "Resgate Antecipado (Dentro da Carência)",
+      description: "Via 'melhor esforço' no mercado secundário ou recompra pela empresa — sujeito a disponibilidade de caixa e com deságio de 20% sobre o valor de face do título.",
       alert: true
     },
     {
+      icon: <Bell className="w-6 h-6 text-blue-600" />,
+      title: "Aviso Prévio Mínimo",
+      description: "Para solicitar resgate pós-carência, é necessário aviso prévio mínimo de 120 dias antes do vencimento do contrato.",
+      alert: false
+    },
+    {
       icon: <ShieldCheck className="w-6 h-6 text-emerald-600" />,
-      title: "Pós-Carência",
-      description: "Sem deságio. Prazo de até 60 dias para tentativa de realocação no mercado secundário ou recompra (se houver caixa disponível).",
+      title: "Pós-Carência (Sem Deságio)",
+      description: "Após a carência de 2 anos e respeitado o aviso prévio de 120 dias, o resgate ocorre sem deságio em até 60 dias via realocação ou recompra.",
       alert: false
     }
   ];
@@ -35,11 +41,11 @@ export function Liquidity() {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-navy-950 mb-4">Regras de Liquidez e Resgate</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Compreenda os prazos e condições para movimentação do seu capital.
+            Compreenda os prazos e condições para movimentação do seu capital. Carência mínima de 2 anos com aviso prévio de 120 dias.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {rules.map((rule, index) => (
             <motion.div
               key={index}

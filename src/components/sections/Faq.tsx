@@ -6,20 +6,28 @@ import { cn } from "@/lib/utils";
 export function Faq() {
   const faqs = [
     {
-      q: "Posso revender meu título para terceiros?",
-      a: "Sim. O mercado secundário é livre — você pode negociar seu título diretamente com outros investidores por qualquer valor e taxa acordados entre as partes, sem qualquer intermediação ou aprovação da Securitizadora."
+      q: "Posso revender meu título para terceiros durante a carência?",
+      a: "Sim. O mercado secundário é livre — você pode negociar seu título diretamente com outros investidores por qualquer valor e taxa acordados entre as partes. A Securitizadora não intermedeia nem precisa aprovar a transação."
     },
     {
-      q: "Qual é o meu retorno no resgate antecipado?",
-      a: "O resgate antecipado está sujeito à disponibilidade de caixa da empresa. Antes do período de carência (2 anos), aplica-se um deságio de 20% sobre o valor de face. Após a carência, não há deságio."
+      q: "Qual é o meu retorno no resgate antecipado (dentro da carência)?",
+      a: "Dentro do período de carência de 2 anos (720 dias), a Securitizadora pode tentar uma recompra via 'melhor esforço' no mercado secundário ou diretamente, com aplicação de deságio de 20% sobre o valor de face. Não há garantia de execução."
+    },
+    {
+      q: "Como funciona o resgate após o período de carência?",
+      a: "Após os 2 anos de carência, o resgate ocorre sem deságio. Para solicitar o resgate, o investidor deve comunicar com aviso prévio mínimo de 120 dias antes do vencimento. O prazo de liquidação é de até 60 dias após a solicitação."
     },
     {
       q: "Qual é o retorno no vencimento?",
-      a: "No vencimento, você recebe o retorno mensal de 1% a.m. acumulado durante todo o período. Caso o resultado total seja positivo, você ainda recebe uma participação de 20% sobre o lucro excedente, sem limite máximo."
+      a: "No vencimento, você recebe o retorno mensal de 1% a.m. (rentabilidade fixa) acumulado durante todo o período. Caso o resultado total da carteira seja positivo, você ainda recebe uma participação de 20% sobre o lucro excedente ao 1% a.m. acumulado, sem limite máximo."
     },
     {
-      q: "Quem é responsável pelo pagamento?",
-      a: "O devedor é a empresa emissora dos recebíveis. A Securitizadora (Alfa Sec) não é devedora e não oferece garantia de retorno. O risco de crédito recai sobre o devedor dos ativos subjacentes."
+      q: "Quem é responsável pelo pagamento e qual é o papel da Securitizadora?",
+      a: "O devedor é a empresa emissora dos recebíveis. A Securitizadora é um veículo de emissão e não é a devedora direta da dívida. A Securitizadora atua em regime de 'melhor esforço' para garantia de recompra dos títulos e não oferece garantia absoluta de retorno."
+    },
+    {
+      q: "O investimento via Token Descentralizado tem isensão de IR?",
+      a: "Sim. Investimentos realizados via Token Descentralizado possuem isenção de IRPF para movimentações de até R$ 35.000,00 por mês (nos termos da legislação vigente). Esta isenção se aplica ao fluxo nacional (depósito via TED em Reais com emissão de tokens a preço zero). Operações do exterior não se beneficiam desta isenção."
     }
   ];
 

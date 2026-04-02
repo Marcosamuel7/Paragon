@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Info } from "lucide-react";
 
 export function TaxTable() {
   const rows = [
@@ -14,7 +15,7 @@ export function TaxTable() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-navy-950 mb-4">Tributação — Imposto de Renda</h2>
           <p className="text-lg text-muted-foreground">
-            Tabela regressiva, retida na fonte. Válida para Pessoa Física e Jurídica.
+            Tabela regressiva de renda fixa, retida na fonte. Válida para Pessoa Física e Jurídica.
           </p>
         </div>
 
@@ -42,8 +43,15 @@ export function TaxTable() {
                   >
                     <td className={`py-5 px-8 ${row.highlight ? "font-medium text-emerald-900" : "text-slate-600"}`}>
                       {row.period}
+                      {row.highlight && (
+                        <span className="ml-3 inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
+                          Alíquota Máxima — Recomendado
+                        </span>
+                      )}
                     </td>
-                    <td className={`py-5 px-8 text-right font-semibold ${row.highlight ? "text-emerald-700" : "text-navy-700"}`}>
+                    <td className={`py-5 px-8 text-right font-semibold text-xl ${
+                      row.highlight ? "text-emerald-700" : "text-navy-700"
+                    }`}>
                       {row.rate}
                     </td>
                   </tr>
@@ -51,8 +59,14 @@ export function TaxTable() {
               </tbody>
             </table>
           </div>
-          <div className="bg-slate-50 p-4 border-t border-slate-200 text-sm text-slate-500 text-center">
-            A alíquota de 15% é o benefício máximo da tabela regressiva padrão.
+          <div className="bg-slate-50 p-5 border-t border-slate-200">
+            <div className="flex items-start gap-3">
+              <Info className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+              <p className="text-sm text-slate-600">
+                <strong className="text-emerald-700">Alíquota mínima de 15%</strong> para investimentos mantidos por mais de 720 dias. 
+                A tabela regressiva de renda fixa incentiva o investidor de longo prazo a carregar o título até o vencimento, maximizando o resultado líquido.
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>

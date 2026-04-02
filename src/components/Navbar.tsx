@@ -20,6 +20,7 @@ export function Navbar() {
     { name: "Rentabilidade", href: "#rentabilidade" },
     { name: "Liquidez", href: "#liquidez" },
     { name: "Tributação", href: "#tributacao" },
+    { name: "Tokenização", href: "#tokenizacao" },
     { name: "FAQ", href: "#faq" },
   ];
 
