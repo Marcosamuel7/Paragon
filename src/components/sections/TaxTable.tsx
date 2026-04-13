@@ -45,7 +45,7 @@ export function TaxTable() {
                       {row.period}
                       {row.highlight && (
                         <span className="ml-3 inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">
-                          Alíquota Máxima — Recomendado
+                          Alíquota Mínima — Recomendado
                         </span>
                       )}
                     </td>

@@ -159,7 +159,7 @@ export function Tokenization() {
           </motion.div>
         </div>
 
-        {/* Buyback Guarantee */}
+        {/* Investor Protection & Buyback Guarantee */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -173,21 +173,22 @@ export function Tokenization() {
               <ShieldCheck className="w-8 h-8 text-emerald-400" />
             </div>
             <div>
-              <div className="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-2">Garantia de Recompra</div>
+              <div className="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-2">Proteção & Garantia</div>
               <h3 className="text-xl font-bold text-white mb-3">
-                Recompra pelo Valor de Contrato — Independente da Oscilação de Mercado
+                Proteção Securitizada via Pool & Recompra Garantida
               </h3>
-              <p className="text-navy-200 leading-relaxed">
-                A Securitizadora garante a recompra dos tokens pelo <strong className="text-white">valor de contrato</strong>, 
-                independentemente da oscilação do preço em tela (mercado aberto). O investidor não está exposto à 
-                volatilidade do preço de mercado dos tokens — o valor de referência para resgate é sempre o 
-                estabelecido em contrato.
+              <p className="text-navy-200 leading-relaxed mb-4">
+                <strong className="text-white">Proteção via Pool:</strong> O investidor conta com uma estrutura robusta de proteção mitigando riscos de default através da pulverização e garantias de um pool de recebíveis.
               </p>
-              <div className="mt-4 flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
+              <p className="text-navy-200 leading-relaxed">
+                <strong className="text-white">Recompra:</strong> A Securitizadora garante a recompra dos tokens pelo valor de contrato, 
+                independentemente da oscilação do preço em tela (mercado aberto). O investidor não está exposto à 
+                volatilidade do preço de mercado.
+              </p>
+              <div className="mt-6 flex items-start gap-2 bg-amber-500/10 border border-amber-500/20 rounded-xl p-3">
                 <Info className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
                 <p className="text-xs text-amber-200">
-                  Esta garantia está sujeita às regras de carência e melhor esforço da Securitizadora. 
-                  Consulte o contrato de emissão para detalhes completos.
+                  A proteção securitizada e a garantia de recompra estão sujeitas às regras e limites contratuais da Securitizadora.
                 </p>
               </div>
             </div>

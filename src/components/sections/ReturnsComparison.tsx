@@ -9,19 +9,42 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
+  ReferenceLine
 } from "recharts";
 
-// Dados mock baseados no print providenciado
-const comparisonData = [
-  { label: "0 anos", alfaSec: 100000, cdi: 100000, portfolio: 100000 },
-  { label: "0.5 anos", alfaSec: 106152, cdi: 106650, portfolio: 108150 },
-  { label: "1 ano", alfaSec: 112682, cdi: 113700, portfolio: 117000 },
-  { label: "1.5 anos", alfaSec: 119614, cdi: 121300, portfolio: 126500 },
-  { label: "2 anos", alfaSec: 126973, cdi: 129400, portfolio: 136800 },
-  { label: "2.5 anos", alfaSec: 134784, cdi: 138000, portfolio: 147800 },
-  { label: "3 anos", alfaSec: 143078, cdi: 147276, portfolio: 158234 },
-];
+// Gerando dados do gráfico longo apartir de Dez/24 até Dez/32
+const comparisonData = (() => {
+  let cdi = 100000;
+  let appFin = 100000;
+  let invDir = 100000;
+  
+  const labels = [
+    "Dez/24", "Jun/25", "Dez/25", "Jun/26", "Dez/26", 
+    "Jun/27", "Dez/27", "Jun/28", "Dez/28", "Jun/29", 
+    "Dez/29", "Jun/30", "Dez/30", "Jun/31", "Dez/31", 
+    "Jun/32", "Dez/32"
+  ];
+  
+  return labels.map(label => {
+    const point = {
+      label,
+      cdi: Math.round(cdi),
+      appFin: Math.round(appFin),
+      invDir: Math.round(invDir),
+      portfolio: Math.round(appFin * 0.8 + invDir * 0.2)
+    };
+    
+    // Taxas nominais aproximadas por semestre:
+    cdi *= 1.0615; // Equivalente a ~12.7% CDI ao ano
+    appFin *= 1.0676; // 110% do CDI
+    invDir *= 1.1143; // 186% do CDI
+    
+    return point;
+  });
+})();
+
+const finalData = comparisonData[comparisonData.length - 1]; // Para os cards
 
 const diData = [
   { label: "Atual", rate: 14.58 },
@@ -31,7 +54,6 @@ const diData = [
   { label: "3A (756 DU)", rate: 13.77 },
 ];
 
-// Helper functions for formatting
 const formatCurrencyInfo = (value: number) => {
   return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(value);
 };
@@ -45,11 +67,10 @@ const formatPercent = (value: number) => {
   return `${value.toFixed(1)}%`;
 };
 
-// Custom Tooltips para os gráficos
 const CustomLineTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-4 border border-slate-200 shadow-xl rounded-xl">
+      <div className="bg-white p-4 border border-slate-200 shadow-xl rounded-xl z-50 relative">
         <p className="text-slate-500 font-medium mb-3 text-sm">{label}</p>
         <div className="flex flex-col gap-2">
           {payload.map((entry: any, index: number) => (
@@ -73,7 +94,7 @@ const CustomLineTooltip = ({ active, payload, label }: any) => {
 const CustomAreaTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-3 border border-slate-200 shadow-xl rounded-lg">
+      <div className="bg-white p-3 border border-slate-200 shadow-xl rounded-lg z-50 relative">
         <p className="text-slate-500 font-medium mb-2 text-xs">{label}</p>
         <p className="font-bold text-navy-800 text-lg">
           {payload[0].value.toFixed(2)}%
@@ -117,14 +138,14 @@ export function ReturnsComparison() {
         className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
       >
         <div className="text-center mb-8">
-          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Comparativo: Alfa 1% a.m. vs Portfólio Alfa vs 100% CDI</h3>
-          <p className="text-slate-500 mt-2 text-sm">
-            Investimento inicial de R$ 100.000 • Vencimento em 3 anos<br/>
-            <span className="font-medium text-navy-800">Diferença final: <span className="text-emerald-600">R$ 10.958 a favor da Alfa</span></span>
+          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Comparativo Global: Modelo 80/20</h3>
+          <p className="text-slate-500 mt-2 text-sm max-w-2xl mx-auto">
+            Investimento inicial de R$ 100.000. 
+            <br/><span className="text-amber-600 font-medium">Disclaimer:</span> Até este mês o CDI utilizado é o CDI histórico observado. A partir deste mês, os resultados são projetados com base na curva de CDI futuro. Tudo bruto de IR.
           </p>
         </div>
 
-        <div className="h-[300px] sm:h-[400px] w-full mt-6">
+        <div className="h-[350px] sm:h-[450px] w-full mt-6">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={comparisonData}
@@ -141,59 +162,79 @@ export function ReturnsComparison() {
                 tickFormatter={formatYAxisCurrency}
                 tick={{ fill: '#64748b', fontSize: 12 }}
                 tickMargin={8}
-                domain={[95000, 163000]}
+                domain={['auto', 'auto']}
                 axisLine={false}
                 tickLine={false}
               />
               <Tooltip content={<CustomLineTooltip />} />
               <Legend content={<CustomLegend />} wrapperStyle={{ paddingTop: '20px' }} />
               
+              <ReferenceLine 
+                x="Dez/29" 
+                stroke="#64748b" 
+                strokeDasharray="4 4" 
+                label={{ position: 'top', value: 'Vencimento Debênture (Conciliação)', fill: '#475569', fontSize: 11 }} 
+              />
+
               <Line 
-                name="Alfa Sec (1% a.m.)"
+                name="Investimento Direto (186% CDI)"
                 type="monotone" 
-                dataKey="alfaSec" 
-                stroke="#0f172a" 
+                dataKey="invDir" 
+                stroke="#d97706" 
                 strokeWidth={2}
-                dot={{ r: 3, fill: "#0f172a" }}
-                activeDot={{ r: 6 }}
+                dot={{ r: 3, fill: "#d97706" }}
               />
               <Line 
                 name="100% CDI"
                 type="monotone" 
                 dataKey="cdi" 
-                stroke="#eab308" 
+                stroke="#64748b" 
                 strokeWidth={2} 
                 strokeDasharray="5 5"
-                dot={{ r: 3, fill: "#eab308" }}
+                dot={{ r: 3, fill: "#64748b" }}
               />
               <Line 
-                name="Portfólio Alfa (120% CDI)"
+                name="Aplicação Financeira"
+                type="monotone" 
+                dataKey="appFin" 
+                stroke="#3b82f6" 
+                strokeWidth={2}
+                dot={{ r: 3, fill: "#3b82f6" }}
+              />
+              <Line 
+                name="Linha Alfa (80/20)"
                 type="monotone" 
                 dataKey="portfolio" 
                 stroke="#10b981" 
-                strokeWidth={2}
-                dot={{ r: 3, fill: "#10b981" }}
+                strokeWidth={3}
+                dot={{ r: 4, fill: "#10b981" }}
+                activeDot={{ r: 6 }}
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         {/* Cards Info Embaixo do Gráfico 1 */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
-          <div className="bg-slate-50 border border-slate-100 rounded-xl p-5 text-left flex flex-col justify-between">
-            <span className="text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider">Alfa Sec (36m)</span>
-            <span className="text-2xl font-black text-navy-900 mb-1">R$ 143.078</span>
-            <span className="text-sm font-medium text-slate-500">Retorno: 43.1%</span>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+          <div className="bg-emerald-50 text-left border border-emerald-100 rounded-xl p-5 shadow-sm">
+             <div className="text-xs text-emerald-700 font-bold mb-1 uppercase tracking-wider">Linha Alfa (80/20)</div>
+             <div className="text-xl font-black text-emerald-700 mb-1">{formatCurrencyInfo(finalData.portfolio)}</div>
+             <div className="text-sm font-medium text-emerald-700/80">Projetado final</div>
           </div>
-          <div className="bg-emerald-50/50 border border-emerald-100 rounded-xl p-5 text-left flex flex-col justify-between shadow-sm">
-            <span className="text-xs font-bold text-emerald-600/80 mb-1 uppercase tracking-wider">Portfólio Alfa (36m)</span>
-            <span className="text-2xl font-black text-emerald-600 mb-1">R$ 158.234</span>
-            <span className="text-sm font-medium text-emerald-600/80">Retorno: 58.2%</span>
+          <div className="bg-amber-50 text-left border border-amber-100 rounded-xl p-5">
+             <div className="text-xs text-amber-700 font-bold mb-1 uppercase tracking-wider">Investimento Direto</div>
+             <div className="text-xl font-black text-amber-700 mb-1">{formatCurrencyInfo(finalData.invDir)}</div>
+             <div className="text-sm font-medium text-amber-700/80">Projetado final</div>
           </div>
-          <div className="bg-amber-50/30 border border-amber-100/50 rounded-xl p-5 text-left flex flex-col justify-between">
-            <span className="text-xs font-bold text-slate-500 mb-1 uppercase tracking-wider">100% CDI (36m)</span>
-            <span className="text-2xl font-black text-amber-500 mb-1">R$ 147.276</span>
-            <span className="text-sm font-medium text-slate-500">Retorno: 47.3%</span>
+          <div className="bg-blue-50 text-left border border-blue-100 rounded-xl p-5">
+             <div className="text-xs text-blue-700 font-bold mb-1 uppercase tracking-wider">Aplicação Fin.</div>
+             <div className="text-xl font-black text-blue-700 mb-1">{formatCurrencyInfo(finalData.appFin)}</div>
+             <div className="text-sm font-medium text-blue-700/80">Projetado final</div>
+          </div>
+          <div className="bg-slate-50/50 text-left border border-slate-200 rounded-xl p-5">
+             <div className="text-xs text-slate-500 font-bold mb-1 uppercase tracking-wider">100% CDI</div>
+             <div className="text-xl font-black text-navy-900 mb-1">{formatCurrencyInfo(finalData.cdi)}</div>
+             <div className="text-sm font-medium text-slate-500">Projetado final</div>
           </div>
         </div>
       </motion.div>
@@ -209,7 +250,7 @@ export function ReturnsComparison() {
         <div className="text-center mb-8">
           <h3 className="text-xl md:text-2xl font-bold text-navy-950">Curva de DI Futuro</h3>
           <p className="text-slate-500 mt-2 text-sm">
-            Taxas de juros futuros por vencimento — referência: 02/04/2026
+            Taxas de juros futuros por vencimento — referência atualizada
           </p>
         </div>
 

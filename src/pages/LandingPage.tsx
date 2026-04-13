@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/sections/Hero";
+import { About } from "@/components/sections/About";
 import { Thesis } from "@/components/sections/Thesis";
 import { Returns } from "@/components/sections/Returns";
 import { Liquidity } from "@/components/sections/Liquidity";
@@ -15,6 +16,7 @@ export default function LandingPage() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <About />
         <Thesis />
         <Returns />
         <Liquidity />
