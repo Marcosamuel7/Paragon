@@ -32,7 +32,7 @@ const comparisonData = (() => {
       cdi: Math.round(cdi),
       appFin: Math.round(appFin),
       invDir: Math.round(invDir),
-      portfolio: Math.round(appFin * 0.8 + invDir * 0.2)
+      portfolio: Math.round(appFin * 0.6 + invDir * 0.4)
     };
     
     // Taxas nominais aproximadas por semestre:
@@ -111,10 +111,10 @@ const CustomLegend = ({ payload }: any) => {
       {payload.map((entry: any, index: number) => (
         <div key={`item-${index}`} className="flex items-center gap-2 text-sm">
           <svg width="12" height="12" viewBox="0 0 12 12">
-            {entry.value === "100% CDI" ? (
-              <circle cx="6" cy="6" r="5" fill="none" stroke={entry.color} strokeWidth="2" strokeDasharray="2 2" />
-            ) : (
+            {entry.value === "Linha Alfa (60/40)" ? (
               <circle cx="6" cy="6" r="5" fill={entry.color} />
+            ) : (
+              <circle cx="6" cy="6" r="5" fill="none" stroke={entry.color} strokeWidth="2" strokeDasharray="2 2" />
             )}
           </svg>
           <span className="font-medium" style={{ color: entry.color }}>{entry.value}</span>
@@ -138,7 +138,7 @@ export function ReturnsComparison() {
         className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
       >
         <div className="text-center mb-8">
-          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Comparativo Global: Modelo 80/20</h3>
+          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Comparativo Global: Modelo 60/40</h3>
           <p className="text-slate-500 mt-2 text-sm max-w-2xl mx-auto">
             Investimento inicial de R$ 100.000. 
             <br/><span className="text-amber-600 font-medium">Disclaimer:</span> Até este mês o CDI utilizado é o CDI histórico observado. A partir deste mês, os resultados são projetados com base na curva de CDI futuro. Tudo bruto de IR.
@@ -181,34 +181,39 @@ export function ReturnsComparison() {
                 type="monotone" 
                 dataKey="invDir" 
                 stroke="#d97706" 
-                strokeWidth={2}
-                dot={{ r: 3, fill: "#d97706" }}
+                strokeWidth={1.5}
+                strokeDasharray="6 4"
+                strokeOpacity={0.5}
+                dot={false}
               />
               <Line 
                 name="100% CDI"
                 type="monotone" 
                 dataKey="cdi" 
                 stroke="#64748b" 
-                strokeWidth={2} 
+                strokeWidth={1.5} 
                 strokeDasharray="5 5"
-                dot={{ r: 3, fill: "#64748b" }}
+                strokeOpacity={0.5}
+                dot={false}
               />
               <Line 
-                name="Aplicação Financeira"
+                name="Aplicação Financeira (110% CDI)"
                 type="monotone" 
                 dataKey="appFin" 
                 stroke="#3b82f6" 
-                strokeWidth={2}
-                dot={{ r: 3, fill: "#3b82f6" }}
+                strokeWidth={1.5}
+                strokeDasharray="6 4"
+                strokeOpacity={0.5}
+                dot={false}
               />
               <Line 
-                name="Linha Alfa (80/20)"
+                name="Linha Alfa (60/40)"
                 type="monotone" 
                 dataKey="portfolio" 
                 stroke="#10b981" 
-                strokeWidth={3}
+                strokeWidth={3.5}
                 dot={{ r: 4, fill: "#10b981" }}
-                activeDot={{ r: 6 }}
+                activeDot={{ r: 7 }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -217,7 +222,7 @@ export function ReturnsComparison() {
         {/* Cards Info Embaixo do Gráfico 1 */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
           <div className="bg-emerald-50 text-left border border-emerald-100 rounded-xl p-5 shadow-sm">
-             <div className="text-xs text-emerald-700 font-bold mb-1 uppercase tracking-wider">Linha Alfa (80/20)</div>
+             <div className="text-xs text-emerald-700 font-bold mb-1 uppercase tracking-wider">Linha Alfa (60/40)</div>
              <div className="text-xl font-black text-emerald-700 mb-1">{formatCurrencyInfo(finalData.portfolio)}</div>
              <div className="text-sm font-medium text-emerald-700/80">Projetado final</div>
           </div>

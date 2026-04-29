@@ -58,6 +58,14 @@ export function Hero() {
           >
             <a 
               href="#tese" 
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("tese");
+                if (el) {
+                  const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 text-lg font-semibold bg-white text-navy-950 rounded-xl shadow-xl hover:bg-slate-100 hover:scale-105 hover:shadow-2xl transition-all duration-300 group"
             >
               Conheça a Estrutura

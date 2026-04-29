@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -6,6 +7,29 @@ import { cn } from "@/lib/utils";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [location, setLocation] = useLocation();
+
+  const handleHashClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+    
+    if (location !== "/") {
+      setLocation("/");
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.pageYOffset - 60;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const el = document.getElementById(hash);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,12 +40,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Tese", href: "#tese" },
-    { name: "Rentabilidade", href: "#rentabilidade" },
-    { name: "Liquidez", href: "#liquidez" },
-    { name: "Tributação", href: "#tributacao" },
-    { name: "Tokenização", href: "#tokenizacao" },
-    { name: "FAQ", href: "#faq" },
+    { name: "Tese", href: "tese", isHash: true },
+    { name: "Rentabilidade", href: "rentabilidade", isHash: true },
+    { name: "Tributação", href: "tributacao", isHash: true },
+    { name: "Tokenização", href: "/tokenizacao", isRoute: true },
+    { name: "Sobre", href: "/sobre", isRoute: true },
   ];
 
   return (
@@ -46,18 +69,31 @@ export function Navbar() {
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-navy-700 hover:text-primary transition-colors relative group"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-            </a>
+            link.isRoute ? (
+              <Link 
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-navy-700 hover:text-primary transition-colors relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={`#${link.href}`}
+                onClick={(e) => handleHashClick(e, link.href)}
+                className="text-sm font-medium text-navy-700 hover:text-primary transition-colors relative group cursor-pointer"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              </a>
+            )
           ))}
           <a
             href="#tese"
-            className="px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold shadow-md shadow-primary/20 hover:bg-navy-800 hover:-translate-y-0.5 transition-all duration-200"
+            onClick={(e) => handleHashClick(e, "tese")}
+            className="px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold shadow-md shadow-primary/20 hover:bg-navy-800 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
           >
             Conheça a Estrutura
           </a>
@@ -81,14 +117,25 @@ export function Navbar() {
       >
         <div className="px-4 pt-2 pb-6 space-y-1">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-3 rounded-md text-base font-medium text-navy-800 hover:bg-slate-50 hover:text-primary"
-            >
-              {link.name}
-            </a>
+            link.isRoute ? (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-3 rounded-md text-base font-medium text-navy-800 hover:bg-slate-50 hover:text-primary"
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={`#${link.href}`}
+                onClick={(e) => handleHashClick(e, link.href)}
+                className="block px-3 py-3 rounded-md text-base font-medium text-navy-800 hover:bg-slate-50 hover:text-primary cursor-pointer"
+              >
+                {link.name}
+              </a>
+            )
           ))}
         </div>
       </motion.div>
