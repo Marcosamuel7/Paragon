@@ -44,7 +44,7 @@ export function Navbar() {
     { name: "Rentabilidade", href: "rentabilidade", isHash: true },
     { name: "Tributação", href: "tributacao", isHash: true },
     { name: "Tokenização", href: "/tokenizacao", isRoute: true },
-    { name: "Sobre", href: "/sobre", isRoute: true },
+    { name: "FAQ - Duvidas", href: "/sobre", isRoute: true },
   ];
 
   return (

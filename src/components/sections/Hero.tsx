@@ -1,9 +1,32 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { ArrowRight, Building2, Target, TrendingUp, Handshake } from "lucide-react";
+
+const aboutItems = [
+  {
+    icon: <Building2 className="w-8 h-8 text-indigo-400" />,
+    title: "O que é a Alfa Sec?",
+    desc: "Um escritório de financiamento à cadeia de produção e investimento em renda fixa."
+  },
+  {
+    icon: <Target className="w-8 h-8 text-emerald-400" />,
+    title: "Nosso Objetivo",
+    desc: "Estruturar investimento direto na Economia Real de forma eficiente."
+  },
+  {
+    icon: <TrendingUp className="w-8 h-8 text-amber-400" />,
+    title: "Para o Investidor",
+    desc: "Entregar um retorno maior, diversificado, líquido e com baixa volatilidade, em uma estrutura leve e eficiente."
+  },
+  {
+    icon: <Handshake className="w-8 h-8 text-blue-400" />,
+    title: "Para o Tomador",
+    desc: "Disponibilizar um crédito em formato único e próximo. Mais acessível que as taxas de mercado."
+  }
+];
 
 export function Hero() {
   return (
-    <section className="relative pt-24 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-navy-950">
+    <section className="relative pt-24 pb-20 lg:pt-40 lg:pb-0 overflow-hidden bg-navy-950">
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -16,23 +39,18 @@ export function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Warning Banner */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex justify-center mb-10"
-        >
-          <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-2.5 rounded-lg text-amber-400 text-sm font-medium backdrop-blur-sm shadow-xl max-w-3xl text-center">
-            <AlertTriangle className="w-5 h-5 shrink-0" />
-            <p>
-              <span className="font-bold">Atenção:</span> Este é um investimento de risco moderado a alto. Invista apenas capital que não comprometa sua liquidez.
-            </p>
-          </div>
-        </motion.div>
+
 
         {/* Main Content */}
         <div className="text-center max-w-4xl mx-auto mt-8">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-sm font-bold uppercase tracking-widest text-amber-400/80 mb-3"
+          >
+            Um escritório de estruturação e gestão de investimentos.
+          </motion.p>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,7 +80,7 @@ export function Hero() {
                 e.preventDefault();
                 const el = document.getElementById("tese");
                 if (el) {
-                  const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+                  const y = el.getBoundingClientRect().top + window.pageYOffset - 64;
                   window.scrollTo({ top: y, behavior: 'smooth' });
                 }
               }}
@@ -73,18 +91,28 @@ export function Hero() {
             </a>
           </motion.div>
         </div>
+
+        {/* About Cards — inline na primeira dobra */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-20 pb-16">
+          {aboutItems.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 + idx * 0.1 }}
+              className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group backdrop-blur-sm"
+            >
+              <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                {item.icon}
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+              <p className="text-navy-300 leading-relaxed text-sm">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
       
-      {/* Scroll indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-navy-300/50"
-      >
-        <span className="text-xs uppercase tracking-widest font-semibold">Role para descobrir</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-navy-300/50 to-transparent"></div>
-      </motion.div>
+
     </section>
   );
 }

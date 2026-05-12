@@ -1,147 +1,23 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, TrendingUp, PieChart, Landmark, ArrowRightLeft, Wallet2 } from "lucide-react";
+import { ShieldCheck, TrendingUp, Landmark, ArrowRightLeft, Wallet2 } from "lucide-react";
 
 export function Thesis() {
   return (
-    <section id="tese" className="py-24 bg-white relative overflow-hidden">
+    <section id="tese" className="pt-12 pb-24 bg-white relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-navy-50/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Section 1: Sugestões de Alocação */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-navy-950 mb-4">Estratégia Personalizada por Perfil</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            O percentual de alocação fica a critério do cliente, mesclando ativos líquidos com a economia real.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-24">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-slate-50 border border-slate-200 p-8 rounded-3xl text-center">
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Conservador</h3>
-            <div className="text-4xl font-black text-navy-900 mb-2">90/10</div>
-            <p className="text-sm font-medium text-slate-500">90% Investimentos Financeiros<br/>10% Investimento Direto</p>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="bg-navy-950 border border-navy-800 p-8 rounded-3xl text-center relative shadow-xl transform md:-translate-y-4">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-amber-500 text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Sugerido</div>
-            <h3 className="text-xl font-bold text-navy-100 mb-2">Moderado</h3>
-            <div className="text-5xl font-black text-white mb-2">60/40</div>
-            <p className="text-sm font-medium text-navy-300">60% Investimentos Financeiros<br/>40% Investimento Direto</p>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-slate-50 border border-slate-200 p-8 rounded-3xl text-center">
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Agressivo</h3>
-            <div className="text-4xl font-black text-amber-600 mb-2">50/50</div>
-            <p className="text-sm font-medium text-slate-500">50% Investimentos Financeiros<br/>50% Investimento Direto</p>
-          </motion.div>
-        </div>
-
-        {/* Section 2: Dois Quadros 60/40 - Estratégias */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-navy-950">Composição da Estratégia</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-2">
-            Formato 60/40 — diversificação entre investimentos financeiros e investimento direto.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-5 gap-8 mb-24 items-stretch">
-          {/* 60% Investimentos Financeiros */}
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="md:col-span-3 bg-navy-50 rounded-3xl p-8 md:p-10 border border-navy-100 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldCheck className="w-48 h-48" /></div>
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-navy-900 flex items-center gap-3">
-                  <Landmark className="w-6 h-6 text-navy-700" /> Investimentos Financeiros
-                </h3>
-                <span className="text-3xl font-black text-navy-700/30">60%</span>
-              </div>
-              
-              <div className="space-y-5">
-                <div>
-                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Renda Fixa</span>
-                  <p className="text-slate-600 text-sm">Títulos Públicos, Crédito Privado High Grade</p>
-                </div>
-                <div className="w-full h-px bg-navy-200/50" />
-                <div>
-                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Fundos Líquidos</span>
-                  <p className="text-slate-600 text-sm">Referenciados e Simples, Fundos Imobiliários e de Renda Fixa</p>
-                </div>
-                <div className="w-full h-px bg-navy-200/50" />
-                <div>
-                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Internacional</span>
-                  <p className="text-slate-600 text-sm">Bonds e Renda Variável; ETFs</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* 40% Investimento Direto */}
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="md:col-span-2 bg-[#FFFAF0] rounded-3xl p-8 md:p-10 border border-amber-200 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp className="w-40 h-40 text-amber-600" /></div>
-            <div className="relative z-10">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-2xl font-bold text-navy-900 flex items-center gap-3">
-                  <ArrowRightLeft className="w-6 h-6 text-amber-600" /> Investimento Direto
-                </h3>
-                <span className="text-3xl font-black text-amber-600/30">40%</span>
-              </div>
-
-              <div className="space-y-5">
-                <div>
-                  <span className="font-bold text-amber-700 block text-sm uppercase tracking-wider mb-1">High Yield</span>
-                  <p className="text-slate-600 text-sm">Cadeia de Fornecimento da Construção Civil</p>
-                </div>
-                <div className="w-full h-px bg-amber-200/50" />
-                <div>
-                  <span className="font-bold text-amber-700 block text-sm uppercase tracking-wider mb-1">Antecipação de Recebíveis</span>
-                  <p className="text-slate-600 text-sm">Economia Real, Garantia Real</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Section 3: Vantagens das Classes */}
-        <div className="grid md:grid-cols-2 gap-8 mb-24 items-stretch">
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-navy-50 rounded-3xl p-8 md:p-10 border border-navy-100 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldCheck className="w-48 h-48" /></div>
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-3">
-                <Landmark className="w-6 h-6 text-navy-700" /> Vantagens — Investimentos Financeiros
-              </h3>
-              <ul className="space-y-4">
-                {['Alta liquidez', 'Menor Risco', 'Baixa volatilidade', 'Emissor AAA', 'Mercado Institucional'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-lg font-medium text-navy-800">
-                    <div className="w-2 h-2 rounded-full bg-navy-400" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-[#FFFAF0] rounded-3xl p-8 md:p-10 border border-amber-200 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp className="w-40 h-40 text-amber-600" /></div>
-            <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-3">
-                <ArrowRightLeft className="w-6 h-6 text-amber-600" /> Vantagens — Investimento Direto
-              </h3>
-              <ul className="space-y-4">
-                {['Alto Retorno', 'Acesso Direto', 'Formato mais eficiente, menos custos embutidos', 'Risco diversificado'].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-lg font-medium text-navy-800">
-                    <div className="w-2 h-2 rounded-full bg-amber-500" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Section 4: Ecosystem - Alfa Sec + AuM (sem Colina) */}
+        {/* Section 1: Ecossistema */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-navy-950">Ecossistema</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-2">
+            Estrutura integrada de investimento e gestão de ativos da Alfa Securitizadora.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 mb-24">
           {/* Alfa Sec */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-white border text-center border-amber-200 p-8 rounded-3xl shadow-sm hover:shadow-lg transition-shadow relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
@@ -178,6 +54,104 @@ export function Thesis() {
                 <span className="block text-amber-200 md:text-xs font-bold uppercase tracking-wider mb-1">Investimento Direto</span>
                 <span className="text-3xl font-black text-amber-400">R$ 1M</span>
               </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Section 2: Composição da Estratégia */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-navy-950">Composição da Estratégia</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-2">
+            Diversificação entre investimentos financeiros e investimento direto.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-5 gap-8 mb-24 items-stretch">
+          {/* Investimentos Financeiros */}
+          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="md:col-span-3 bg-navy-50 rounded-3xl p-8 md:p-10 border border-navy-100 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldCheck className="w-48 h-48" /></div>
+            <div className="relative z-10">
+              <div className="flex items-center mb-6">
+                <h3 className="text-2xl font-bold text-navy-900 flex items-center gap-3">
+                  <Landmark className="w-6 h-6 text-navy-700" /> Investimentos Financeiros
+                </h3>
+              </div>
+              
+              <div className="space-y-5">
+                <div>
+                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Renda Fixa</span>
+                  <p className="text-slate-600 text-sm">Títulos Públicos, Crédito Privado High Grade</p>
+                </div>
+                <div className="w-full h-px bg-navy-200/50" />
+                <div>
+                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Fundos Líquidos</span>
+                  <p className="text-slate-600 text-sm">Referenciados e Simples, Fundos Imobiliários e de Renda Fixa</p>
+                </div>
+                <div className="w-full h-px bg-navy-200/50" />
+                <div>
+                  <span className="font-bold text-navy-800 block text-sm uppercase tracking-wider mb-1">Internacional</span>
+                  <p className="text-slate-600 text-sm">Bonds e Renda Variável; ETFs</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Investimento Direto */}
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="md:col-span-2 bg-[#FFFAF0] rounded-3xl p-8 md:p-10 border border-amber-200 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp className="w-40 h-40 text-amber-600" /></div>
+            <div className="relative z-10">
+              <div className="flex items-center mb-6">
+                <h3 className="text-2xl font-bold text-navy-900 flex items-center gap-3">
+                  <ArrowRightLeft className="w-6 h-6 text-amber-600" /> Investimento Direto
+                </h3>
+              </div>
+
+              <div className="space-y-5">
+                <div>
+                  <span className="font-bold text-amber-700 block text-sm uppercase tracking-wider mb-1">High Yield</span>
+                  <p className="text-slate-600 text-sm">Cadeia de Fornecimento da Construção Civil</p>
+                </div>
+                <div className="w-full h-px bg-amber-200/50" />
+                <div>
+                  <span className="font-bold text-amber-700 block text-sm uppercase tracking-wider mb-1">Antecipação de Recebíveis</span>
+                  <p className="text-slate-600 text-sm">Economia Real, Garantia Real</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Section 3: Vantagens das Classes */}
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="bg-navy-50 rounded-3xl p-8 md:p-10 border border-navy-100 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5"><ShieldCheck className="w-48 h-48" /></div>
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-3">
+                <Landmark className="w-6 h-6 text-navy-700" /> Vantagens — Investimentos Financeiros
+              </h3>
+              <ul className="space-y-4">
+                {['Alta liquidez', 'Menor Risco', 'Baixa volatilidade', 'Emissor AAA', 'Mercado Institucional'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-lg font-medium text-navy-800">
+                    <div className="w-2 h-2 rounded-full bg-navy-400" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="bg-[#FFFAF0] rounded-3xl p-8 md:p-10 border border-amber-200 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 opacity-5"><TrendingUp className="w-40 h-40 text-amber-600" /></div>
+            <div className="relative z-10">
+              <h3 className="text-2xl font-bold text-navy-900 mb-6 flex items-center gap-3">
+                <ArrowRightLeft className="w-6 h-6 text-amber-600" /> Vantagens — Investimento Direto
+              </h3>
+              <ul className="space-y-4">
+                {['Alto Retorno', 'Acesso Direto', 'Formato mais eficiente, menos custos embutidos', 'Risco diversificado'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-3 text-lg font-medium text-navy-800">
+                    <div className="w-2 h-2 rounded-full bg-amber-500" /> {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         </div>
