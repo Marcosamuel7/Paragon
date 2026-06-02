@@ -9,10 +9,14 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [location, setLocation] = useLocation();
 
+  const isHome = location === "/";
+  // Navbar transparente sobre o Hero escuro (somente na home, no topo, menu fechado)
+  const onDark = isHome && !isScrolled && !mobileMenuOpen;
+
   const handleHashClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    
+
     if (location !== "/") {
       setLocation("/");
       setTimeout(() => {
@@ -48,21 +52,32 @@ export function Navbar() {
     { name: "FAQ - Dúvidas", href: "/sobre", isRoute: true },
   ];
 
+  const linkClass = cn(
+    "text-sm font-medium transition-colors relative group cursor-pointer",
+    onDark ? "text-white/80 hover:text-white" : "text-navy-700 hover:text-primary"
+  );
+  const underlineClass = cn(
+    "absolute -bottom-1 left-0 w-0 h-0.5 transition-all group-hover:w-full",
+    onDark ? "bg-white" : "bg-primary"
+  );
+
   return (
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b",
-        isScrolled 
-          ? "bg-white/90 backdrop-blur-md border-border shadow-sm py-3" 
-          : "bg-white border-transparent py-5"
+        isScrolled
+          ? "bg-white/90 backdrop-blur-md border-border shadow-sm py-3"
+          : onDark
+            ? "bg-transparent border-transparent py-5"
+            : "bg-white border-transparent py-5"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <div className="flex items-baseline space-x-2">
-          <span className="text-2xl font-bold tracking-tighter text-navy-950">
+          <span className={cn("text-2xl font-bold tracking-tighter transition-colors", onDark ? "text-white" : "text-navy-950")}>
             AB Paragon
           </span>
-          <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">
+          <span className={cn("text-sm font-medium hidden sm:inline-block transition-colors", onDark ? "text-slate-300" : "text-muted-foreground")}>
             Securitizadora
           </span>
         </div>
@@ -71,30 +86,35 @@ export function Navbar() {
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             link.isRoute ? (
-              <Link 
+              <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-navy-700 hover:text-primary transition-colors relative group"
+                className={linkClass}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                <span className={underlineClass} />
               </Link>
             ) : (
               <a
                 key={link.name}
                 href={`#${link.href}`}
                 onClick={(e) => handleHashClick(e, link.href)}
-                className="text-sm font-medium text-navy-700 hover:text-primary transition-colors relative group cursor-pointer"
+                className={linkClass}
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                <span className={underlineClass} />
               </a>
             )
           ))}
           <a
             href="#tese"
             onClick={(e) => handleHashClick(e, "tese")}
-            className="px-5 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-semibold shadow-md shadow-primary/20 hover:bg-navy-800 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+            className={cn(
+              "px-5 py-2.5 rounded-lg text-sm font-semibold shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer",
+              onDark
+                ? "bg-white text-slate-900 shadow-black/20 hover:bg-slate-100"
+                : "bg-primary text-primary-foreground shadow-primary/20 hover:bg-navy-800"
+            )}
           >
             Conheça a Estrutura
           </a>
@@ -102,7 +122,7 @@ export function Navbar() {
 
         {/* Mobile Nav Toggle */}
         <button
-          className="md:hidden p-2 text-navy-900"
+          className={cn("md:hidden p-2 transition-colors", onDark ? "text-white" : "text-navy-900")}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
         >

@@ -3,13 +3,13 @@ import { ArrowRight } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative bg-slate-950 overflow-hidden no-print">
+    <section className="relative min-h-screen flex items-center bg-slate-950 overflow-hidden no-print">
       {/* Subtle background glow */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-600/15 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8 pt-28 pb-20 lg:pt-36 lg:pb-28 text-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 lg:px-8 pt-28 pb-20 lg:pt-32 lg:pb-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
