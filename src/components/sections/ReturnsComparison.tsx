@@ -13,10 +13,10 @@ import {
   ReferenceLine
 } from "recharts";
 
-// ─── Dados históricos Alfa Securitizadora (mensais) ───────────────────────────
+// ─── Dados históricos Carteira Alfa Sec (mensais) ───────────────────────────
 // Rentabilidade nominal bruta de IR por semestre (base 100.000)
 // Alfa: 85% investimento direto (186% CDI) + 15% investimento financeiro (110% CDI)
-// Consolidado: 40% Alfa Securitizadora + 60% investimento financeiro (110% CDI)
+// Consolidado: 40% Carteira Alfa Sec + 60% investimento financeiro (110% CDI)
 
 const comparisonData = (() => {
   let cdi = 100000;
@@ -67,17 +67,42 @@ const diData = [
   { label: "3A (756 DU)", rate: 13.77 },
 ];
 
-// ─── Tabela mensal de rentabilidade ──────────────────────────────────────────
-const tableData = [
-  { mes: "Dez/24", cdi: "100.000", alfaMes: "—",     consolidadoMes: "—",    cdiAcum: "100.000", alfaAcum: "100.000", consolidadoAcum: "100.000", obs: "Início" },
-  { mes: "Jun/25", cdi: "106.150", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "106.150", alfaAcum: "111.430", consolidadoAcum: "107.818", obs: "6 meses" },
-  { mes: "Dez/25", cdi: "112.714", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "112.714", alfaAcum: "124.167", consolidadoAcum: "116.242", obs: "1 ano" },
-  { mes: "Dez/26", cdi: "119.712", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "119.712", alfaAcum: "138.398", consolidadoAcum: "125.261", obs: "2 anos" },
-  { mes: "Dez/27", cdi: "127.157", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "127.157", alfaAcum: "154.278", consolidadoAcum: "134.943", obs: "3 anos" },
-  { mes: "Dez/28", cdi: "135.062", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "135.062", alfaAcum: "171.974", consolidadoAcum: "145.349", obs: "4 anos" },
-  { mes: "Dez/29", cdi: "143.462", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "143.462", alfaAcum: "191.654", consolidadoAcum: "156.544", obs: "Vencimento" },
-  { mes: "Dez/32", cdi: "171.480", alfaMes: "1,00%", consolidadoMes: "0,80%", cdiAcum: "171.480", alfaAcum: "265.620", consolidadoAcum: "193.422", obs: "8 anos" },
+// ─── Histórico mensal real de rentabilidade (% a.m.) ─────────────────────────
+// Fonte: planilha de acompanhamento AB Paragon. Acumulado = soma dos retornos mensais.
+const monthlyHistory = [
+  { mes: "Dez/24", cdi: 0.93, colina: 1.62, alfaSec: 2.23, consolidado: 1.864 },
+  { mes: "Jan/25", cdi: 1.01, colina: -1.32, alfaSec: 2.23, consolidado: 0.1 },
+  { mes: "Fev/25", cdi: 0.99, colina: 5.22, alfaSec: 2.23, consolidado: 4.024 },
+  { mes: "Mar/25", cdi: 0.96, colina: 2.18, alfaSec: 2.23, consolidado: 2.2 },
+  { mes: "Abr/25", cdi: 1.06, colina: 2.83, alfaSec: 2.23, consolidado: 2.59 },
+  { mes: "Mai/25", cdi: 1.14, colina: 0.72, alfaSec: 2.23, consolidado: 1.324 },
+  { mes: "Jun/25", cdi: 1.1, colina: -0.29, alfaSec: 2.23, consolidado: 0.718 },
+  { mes: "Jul/25", cdi: 1.28, colina: 1.67, alfaSec: 2.23, consolidado: 1.894 },
+  { mes: "Ago/25", cdi: 1.16, colina: 1.21, alfaSec: 2.23, consolidado: 1.618 },
+  { mes: "Set/25", cdi: 1.22, colina: 1.91, alfaSec: 2.23, consolidado: 2.038 },
+  { mes: "Out/25", cdi: 1.28, colina: -0.23, alfaSec: 2.23, consolidado: 0.754 },
+  { mes: "Nov/25", cdi: 1.05, colina: 3.02, alfaSec: 2.23, consolidado: 2.704 },
+  { mes: "Dez/25", cdi: 1.22, colina: 1.56, alfaSec: 2.23, consolidado: 1.828 },
+  { mes: "Jan/26", cdi: 1.16, colina: 1.91, alfaSec: 2.23, consolidado: 2.038 },
+  { mes: "Fev/26", cdi: 1.0, colina: 0.84, alfaSec: 2.23, consolidado: 1.396 },
+  { mes: "Mar/26", cdi: 1.21, colina: -1.46, alfaSec: 2.23, consolidado: 0.016 },
 ];
+
+// Acumulado por soma simples dos retornos mensais (running)
+const tableData = (() => {
+  let cdiAcc = 0, colinaAcc = 0, alfaAcc = 0, consAcc = 0;
+  return monthlyHistory.map((r) => {
+    cdiAcc += r.cdi;
+    colinaAcc += r.colina;
+    alfaAcc += r.alfaSec;
+    consAcc += r.consolidado;
+    return { ...r, cdiAcum: cdiAcc, colinaAcum: colinaAcc, alfaAcum: alfaAcc, consAcum: consAcc };
+  });
+})();
+
+const totals = tableData[tableData.length - 1];
+
+const fmtPct = (v: number) => `${v < 0 ? "" : "+"}${v.toFixed(2).replace(".", ",")}%`;
 
 // ─── Formatadores ─────────────────────────────────────────────────────────────
 const formatCurrencyInfo = (value: number) =>
@@ -131,8 +156,8 @@ const CustomAreaTooltip = ({ active, payload, label }: any) => {
 // ─── Legenda customizada ──────────────────────────────────────────────────────
 const CustomLegend = ({ payload }: any) => {
   const descriptions: Record<string, string> = {
-    "Alfa Securitizadora": "85% investimento direto + 15% investimento financeiro",
-    "Consolidado": "40% Alfa Securitizadora + 60% investimento financeiro via Plataforma",
+    "Carteira Alfa Sec": "Maior peso em investimento direto na economia real",
+    "Consolidado": "60% Colina (financeiro) + 40% Alfa Sec (direto)",
     "CDI (100%)": "Referência — taxa básica de juros",
   };
 
@@ -142,7 +167,7 @@ const CustomLegend = ({ payload }: any) => {
         <div key={`item-${index}`} className="flex flex-col items-start gap-1 max-w-xs">
           <div className="flex items-center gap-2 text-sm">
             <svg width="24" height="12" viewBox="0 0 24 12">
-              {entry.value === "Alfa Securitizadora" ? (
+              {entry.value === "Carteira Alfa Sec" ? (
                 <line x1="0" y1="6" x2="24" y2="6" stroke={entry.color} strokeWidth="3" />
               ) : (
                 <line x1="0" y1="6" x2="24" y2="6" stroke={entry.color} strokeWidth="1.5" strokeDasharray="5 4" strokeOpacity="0.7" />
@@ -168,7 +193,7 @@ export function ReturnsComparison() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8"
       >
         <div className="text-center mb-8">
           <h3 className="text-xl md:text-2xl font-bold text-navy-950">Comparativo Global de Rentabilidade</h3>
@@ -228,9 +253,9 @@ export function ReturnsComparison() {
                 strokeOpacity={0.7}
                 dot={false}
               />
-              {/* Alfa Securitizadora — linha principal em destaque laranja */}
+              {/* Carteira Alfa Sec — linha principal em destaque laranja */}
               <Line
-                name="Alfa Securitizadora"
+                name="Carteira Alfa Sec"
                 type="monotone"
                 dataKey="alfa"
                 stroke="#f97316"
@@ -245,7 +270,7 @@ export function ReturnsComparison() {
         {/* Cards de resultado final */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
           <div className="bg-orange-50 text-left border border-orange-100 rounded-xl p-5 shadow-sm">
-            <div className="text-xs text-orange-700 font-bold mb-1 uppercase tracking-wider">Alfa Securitizadora</div>
+            <div className="text-xs text-orange-700 font-bold mb-1 uppercase tracking-wider">Carteira Alfa Sec</div>
             <div className="text-xl font-black text-orange-700 mb-1">{formatCurrencyInfo(finalData.alfa)}</div>
             <div className="text-sm font-medium text-orange-700/80">Projetado final</div>
           </div>
@@ -268,7 +293,7 @@ export function ReturnsComparison() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8"
       >
         <div className="text-center mb-8">
           <h3 className="text-xl md:text-2xl font-bold text-navy-950">Curva de DI Futuro</h3>
@@ -336,62 +361,77 @@ export function ReturnsComparison() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.3 }}
-        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+        className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8"
       >
         <div className="text-center mb-8">
-          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Evolução do Investimento — R$ 100.000</h3>
+          <h3 className="text-xl md:text-2xl font-bold text-navy-950">Histórico de Rentabilidade</h3>
           <p className="text-slate-500 mt-2 text-sm max-w-2xl mx-auto">
-            Projeção nominal bruta de IR. Valores projetados com base na curva de juros futuros a partir do período atual.
+            Retornos mensais reais e <span className="text-blue-600 font-semibold">retorno acumulado</span> (soma dos
+            resultados mensais). Valores brutos de IR.
           </p>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto -mx-2 px-2">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="py-4 px-4 font-semibold text-navy-900 whitespace-nowrap">Período</th>
-                <th className="py-4 px-4 font-semibold text-slate-500 text-right whitespace-nowrap">CDI Acum.</th>
-                <th className="py-4 px-4 font-semibold text-orange-700 text-right whitespace-nowrap">Alfa — Rent. Mês</th>
-                <th className="py-4 px-4 font-semibold text-orange-700 text-right whitespace-nowrap">Alfa — Acum.</th>
-                <th className="py-4 px-4 font-semibold text-blue-700 text-right whitespace-nowrap">Consol. — Rent. Mês</th>
-                <th className="py-4 px-4 font-semibold text-blue-700 text-right whitespace-nowrap">Consol. — Acum.</th>
-                <th className="py-4 px-4 font-semibold text-slate-500 text-right whitespace-nowrap">CDI Valor</th>
-                <th className="py-4 px-4 font-semibold text-slate-500 whitespace-nowrap">Observação</th>
+              <tr className="border-b border-slate-200 text-xs uppercase tracking-wider">
+                <th className="py-3 px-3 font-semibold text-slate-500 whitespace-nowrap text-left">Período</th>
+                <th className="py-3 px-3 font-semibold text-slate-400 text-right whitespace-nowrap">CDI</th>
+                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">CDI acum.</th>
+                <th className="py-3 px-3 font-semibold text-indigo-500 text-right whitespace-nowrap">Colina</th>
+                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">Colina acum.</th>
+                <th className="py-3 px-3 font-semibold text-amber-600 text-right whitespace-nowrap">Alfa Sec</th>
+                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">Alfa Sec acum.</th>
+                <th className="py-3 px-3 font-semibold text-slate-700 text-right whitespace-nowrap">Consolidado</th>
+                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">Consol. acum.</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {tableData.map((row, idx) => (
-                <tr
-                  key={idx}
-                  className={`transition-colors hover:bg-slate-50/50 ${row.obs === "Vencimento" ? "bg-amber-50/50 font-semibold" : ""}`}
-                >
-                  <td className="py-3 px-4 font-medium text-navy-800 whitespace-nowrap">{row.mes}</td>
-                  <td className="py-3 px-4 text-slate-500 text-right whitespace-nowrap">R$ {row.cdi}</td>
-                  <td className="py-3 px-4 text-orange-600 font-semibold text-right whitespace-nowrap">{row.alfaMes}</td>
-                  <td className="py-3 px-4 text-orange-700 font-bold text-right whitespace-nowrap">R$ {row.alfaAcum}</td>
-                  <td className="py-3 px-4 text-blue-600 font-semibold text-right whitespace-nowrap">{row.consolidadoMes}</td>
-                  <td className="py-3 px-4 text-blue-700 font-bold text-right whitespace-nowrap">R$ {row.consolidadoAcum}</td>
-                  <td className="py-3 px-4 text-slate-500 text-right whitespace-nowrap">R$ {row.cdi}</td>
-                  <td className="py-3 px-4 whitespace-nowrap">
-                    {row.obs === "Vencimento" ? (
-                      <span className="inline-block bg-amber-100 text-amber-700 text-xs font-bold px-2 py-0.5 rounded-full">
-                        {row.obs}
-                      </span>
-                    ) : (
-                      <span className="text-slate-400">{row.obs}</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {tableData.map((row, idx) => {
+                const yearClose = row.mes === "Dez/25";
+                const m = (v: number) =>
+                  `${v.toFixed(2).replace(".", ",")}%`;
+                return (
+                  <tr
+                    key={idx}
+                    className={`transition-colors hover:bg-slate-50/50 ${yearClose ? "bg-slate-50" : ""}`}
+                  >
+                    <td className="py-2.5 px-3 font-medium text-navy-800 whitespace-nowrap">{row.mes}</td>
+                    <td className="py-2.5 px-3 text-slate-400 text-right tabular-nums whitespace-nowrap">{m(row.cdi)}</td>
+                    <td className="py-2.5 px-3 text-blue-600 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.cdiAcum)}</td>
+                    <td className={`py-2.5 px-3 text-right tabular-nums whitespace-nowrap ${row.colina < 0 ? "text-rose-500" : "text-slate-600"}`}>{m(row.colina)}</td>
+                    <td className="py-2.5 px-3 text-blue-600 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.colinaAcum)}</td>
+                    <td className="py-2.5 px-3 text-slate-600 text-right tabular-nums whitespace-nowrap">{m(row.alfaSec)}</td>
+                    <td className="py-2.5 px-3 text-blue-600 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.alfaAcum)}</td>
+                    <td className={`py-2.5 px-3 font-medium text-right tabular-nums whitespace-nowrap ${row.consolidado < 0 ? "text-rose-500" : "text-slate-700"}`}>{m(row.consolidado)}</td>
+                    <td className="py-2.5 px-3 text-blue-600 font-bold text-right tabular-nums whitespace-nowrap">{fmtPct(row.consAcum)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
+            <tfoot>
+              <tr className="border-t-2 border-slate-200 bg-blue-50/40 font-bold">
+                <td className="py-3.5 px-3 text-navy-900 whitespace-nowrap">Acumulado</td>
+                <td className="py-3.5 px-3 text-right text-slate-400"></td>
+                <td className="py-3.5 px-3 text-right text-blue-700 tabular-nums whitespace-nowrap">{fmtPct(totals.cdiAcum)}</td>
+                <td className="py-3.5 px-3 text-right text-slate-400"></td>
+                <td className="py-3.5 px-3 text-right text-blue-700 tabular-nums whitespace-nowrap">{fmtPct(totals.colinaAcum)}</td>
+                <td className="py-3.5 px-3 text-right text-slate-400"></td>
+                <td className="py-3.5 px-3 text-right text-blue-700 tabular-nums whitespace-nowrap">{fmtPct(totals.alfaAcum)}</td>
+                <td className="py-3.5 px-3 text-right text-slate-400"></td>
+                <td className="py-3.5 px-3 text-right text-blue-700 tabular-nums whitespace-nowrap">{fmtPct(totals.consAcum)}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
 
         <div className="mt-6 flex items-start gap-3 bg-slate-50 border border-slate-200 rounded-xl p-4">
-          <div className="w-2 h-2 rounded-full bg-orange-500 mt-1.5 shrink-0"></div>
+          <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
           <p className="text-xs text-slate-500 leading-relaxed">
-            <strong className="text-slate-700">Alfa Securitizadora:</strong> composição entre 85% investimento direto e 15% investimento financeiro. &nbsp;
-            <strong className="text-slate-700">Consolidado:</strong> composição entre 40% investimento Alfa Securitizadora e 60% investimento financeiro via Plataforma. Valores brutos de IR.
+            <strong className="text-slate-700">Colina</strong> (investimentos financeiros) e{" "}
+            <strong className="text-slate-700">Alfa Sec</strong> (investimentos diretos) compõem a carteira{" "}
+            <strong className="text-slate-700">Consolidada</strong> (60% Colina + 40% Alfa Sec). O retorno acumulado é
+            a soma dos retornos mensais no período. Rentabilidade passada não é garantia de retorno futuro.
           </p>
         </div>
       </motion.div>

@@ -36,7 +36,7 @@ export function Liquidity() {
   ];
 
   return (
-    <section id="liquidez" className="py-24 bg-white">
+    <section id="liquidez" className="py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-navy-950 mb-4">Regras de Liquidez e Resgate</h2>
@@ -53,9 +53,9 @@ export function Liquidity() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-lg ${
-                rule.alert 
-                  ? "bg-amber-50/50 border-2 border-amber-200/60" 
+              className={`rounded-2xl p-6 relative overflow-hidden ${
+                rule.alert
+                  ? "bg-amber-50/50 border border-amber-200"
                   : "bg-white border border-slate-200"
               }`}
             >

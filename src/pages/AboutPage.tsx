@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
-import { About } from "@/components/sections/About";
+import { AboutParagon } from "@/components/sections/AboutParagon";
 import { Faq } from "@/components/sections/Faq";
 import { Footer } from "@/components/sections/Footer";
 
@@ -12,7 +12,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <main className="flex-1 pt-20">
-        <About />
+        <AboutParagon />
         <Faq />
       </main>
       <Footer />

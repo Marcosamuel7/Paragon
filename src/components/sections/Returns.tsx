@@ -4,7 +4,7 @@ import { ReturnsComparison } from "./ReturnsComparison";
 
 export function Returns() {
   return (
-    <section id="rentabilidade" className="py-24 bg-slate-50 border-y border-slate-200">
+    <section id="rentabilidade" className="py-16 lg:py-20 bg-slate-50 border-y border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-navy-950 mb-4">Mecânica de Rentabilidade e Retorno</h2>
@@ -21,7 +21,7 @@ export function Returns() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
+            className="bg-white rounded-2xl p-8 border border-slate-200"
           >
             <div className="w-14 h-14 bg-navy-50 rounded-xl flex items-center justify-center mb-6">
               <Clock className="w-7 h-7 text-navy-600" />
@@ -49,7 +49,7 @@ export function Returns() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-gradient-to-br from-navy-900 to-navy-950 rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.1)] border border-navy-800 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
+            className="bg-navy-950 rounded-2xl p-8 border border-navy-800 relative overflow-hidden"
           >
             {/* Decorative element */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-3xl rounded-full -translate-y-1/2 translate-x-1/3"></div>

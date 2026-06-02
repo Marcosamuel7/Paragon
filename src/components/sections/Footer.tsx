@@ -8,7 +8,7 @@ export function Footer() {
             AB Paragon
           </span>
           <span className="text-sm font-medium text-navy-400">
-            by Alfa Sec
+            Alfa Sec · Colina
           </span>
         </div>
 
@@ -17,7 +17,7 @@ export function Footer() {
         </p>
 
         <div className="text-xs text-navy-600 font-medium">
-          &copy; {new Date().getFullYear()} Alfa Sec. Todos os direitos reservados.
+          &copy; {new Date().getFullYear()} AB Paragon — Alfa Brasil Paragon Securitizadora. Todos os direitos reservados.
         </div>
       </div>
     </footer>

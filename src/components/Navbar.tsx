@@ -41,10 +41,11 @@ export function Navbar() {
 
   const navLinks = [
     { name: "Tese", href: "tese", isHash: true },
+    { name: "AB Paragon", href: "ab-paragon", isHash: true },
     { name: "Rentabilidade", href: "rentabilidade", isHash: true },
     { name: "Tributação", href: "tributacao", isHash: true },
     { name: "Tokenização", href: "/tokenizacao", isRoute: true },
-    { name: "FAQ - Duvidas", href: "/sobre", isRoute: true },
+    { name: "FAQ - Dúvidas", href: "/sobre", isRoute: true },
   ];
 
   return (
@@ -62,7 +63,7 @@ export function Navbar() {
             AB Paragon
           </span>
           <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">
-            by Alfa Sec
+            Securitizadora
           </span>
         </div>
 

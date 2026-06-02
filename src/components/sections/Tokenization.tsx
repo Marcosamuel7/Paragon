@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Coins, ArrowDownToLine, Globe, ShieldCheck, Info, Zap } from "lucide-react";
+import { ArrowDownToLine, Globe, ShieldCheck, Info, Zap } from "lucide-react";
 
 export function Tokenization() {
   return (
@@ -33,37 +33,10 @@ export function Tokenization() {
             transition={{ delay: 0.2 }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Uma camada tecnológica que amplia o acesso ao investimento com benefícios fiscais
-            exclusivos e liquidez garantida pela Securitizadora.
+            Uma camada tecnológica que amplia o acesso ao investimento, com
+            liquidez e recompra garantidas pela Securitizadora.
           </motion.p>
         </div>
-
-        {/* Tax Exemption Banner */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-violet-600 to-indigo-700 rounded-3xl p-8 md:p-10 mb-10 relative overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 blur-3xl rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-          <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-            <div className="w-16 h-16 bg-white/15 rounded-2xl flex items-center justify-center shrink-0 border border-white/20">
-              <Coins className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <div className="text-violet-200 text-xs font-bold uppercase tracking-widest mb-1">Isenção Fiscal — IRPF</div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                Isenção de IR para movimentações até{" "}
-                <span className="text-violet-200">R$ 35.000,00 / mês</span>
-              </h3>
-              <p className="text-violet-100 leading-relaxed max-w-2xl">
-                Investimentos realizados via Token Descentralizado beneficiam-se de isenção de IRPF para 
-                movimentações mensais de até R$ 35.000,00, nos termos da legislação de criptoativos vigente 
-                (instrução normativa aplicável). Consulte seu assessor tributário para casos individuais.
-              </p>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Acquisition Flows */}
         <div className="grid md:grid-cols-2 gap-6 mb-10">
@@ -91,7 +64,6 @@ export function Tokenization() {
                 { step: "1", label: "Depósito em Reais (BRL) via TED", note: "Para conta indicada pela plataforma" },
                 { step: "2", label: "Confirmação do depósito", note: "Verificação e validação pela Securitizadora" },
                 { step: "3", label: "Emissão de Tokens a preço zero", note: "Tokens emitidos sem custo adicional de conversão" },
-                { step: "4", label: "Isenção aplicável", note: "Movimentações até R$ 35k/mês isentas de IRPF" },
               ].map((item) => (
                 <div key={item.step} className="flex items-start gap-3">
                   <span className="w-6 h-6 bg-navy-800 text-white text-xs font-bold rounded-full flex items-center justify-center shrink-0 mt-0.5">
@@ -105,10 +77,10 @@ export function Tokenization() {
               ))}
             </div>
 
-            <div className="mt-5 flex items-start gap-2 bg-emerald-50 border border-emerald-100 rounded-xl p-3">
-              <Info className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-              <p className="text-xs text-emerald-800">
-                <strong>Isenção disponível</strong> para este fluxo (até R$ 35.000,00/mês).
+            <div className="mt-5 flex items-start gap-2 bg-slate-100 border border-slate-200 rounded-xl p-3">
+              <Info className="w-4 h-4 text-navy-600 mt-0.5 shrink-0" />
+              <p className="text-xs text-navy-700">
+                A tributação segue a <strong>tabela regressiva de renda fixa</strong> aplicável ao título.
               </p>
             </div>
           </motion.div>
@@ -152,8 +124,7 @@ export function Tokenization() {
             <div className="mt-5 flex items-start gap-2 bg-amber-50 border border-amber-100 rounded-xl p-3">
               <Info className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
               <p className="text-xs text-amber-800">
-                <strong>Isenção não aplicável</strong> para operações originadas do exterior. Consulte sua
-                obrigação tributária no país de residência.
+                Operações originadas do exterior devem observar a <strong>obrigação tributária no país de residência</strong> do investidor.
               </p>
             </div>
           </motion.div>

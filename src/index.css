@@ -90,3 +90,88 @@
     @apply tracking-tight text-navy-950;
   }
 }
+
+/* ─── Impressão / Exportação PDF (folder de apresentação) ────────────────── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Preserva fundos e cores na impressão */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Revela elementos animados (framer-motion deixa-os ocultos fora da tela) */
+  [style] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Esconde navegação, rodapé e elementos não imprimíveis */
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+  }
+
+  /* Tributação não entra no folder de apresentação */
+  #tributacao {
+    display: none !important;
+  }
+
+  /* Mantém o bloco de cabeçalho de seção inteiro: se não couber no fim
+     da página, desce inteiro para a próxima (evita cabeçalho órfão) */
+  .print-keep {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Nunca deixar um título sozinho no rodapé da página */
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Sem quebras forçadas nas demais: o conteúdo flui e preenche as páginas,
+     encaixando seções pequenas (ex.: Liquidez) logo abaixo */
+  #tese,
+  #ab-paragon,
+  #rentabilidade,
+  #liquidez {
+    padding-top: 5mm !important;
+    padding-bottom: 5mm !important;
+  }
+
+  /* Comprime o ritmo vertical (margens grandes) para empacotar melhor */
+  .mb-32 { margin-bottom: 1.25rem !important; }
+  .mb-24 { margin-bottom: 1rem !important; }
+  .mb-16 { margin-bottom: 0.9rem !important; }
+  .mb-14 { margin-bottom: 0.9rem !important; }
+  .mt-24 { margin-top: 1rem !important; }
+  .mt-12 { margin-top: 0.75rem !important; }
+
+  /* Evita cortar cards, tabelas e gráficos entre páginas */
+  .rounded-3xl,
+  .rounded-2xl,
+  .rounded-xl,
+  table,
+  .recharts-responsive-container {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

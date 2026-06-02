@@ -26,8 +26,8 @@ export function Faq() {
       a: "O devedor é a empresa emissora dos recebíveis. A Securitizadora é um veículo de emissão e não é a devedora direta da dívida. A Securitizadora atua em regime de 'melhor esforço' para garantia de recompra dos títulos e não oferece garantia absoluta de retorno."
     },
     {
-      q: "O investimento via Token Descentralizado tem isensão de IR?",
-      a: "Sim. Investimentos realizados via Token Descentralizado possuem isenção de IRPF para movimentações de até R$ 35.000,00 por mês (nos termos da legislação vigente). Esta isenção se aplica ao fluxo nacional (depósito via TED em Reais com emissão de tokens a preço zero). Operações do exterior não se beneficiam desta isenção."
+      q: "Este investimento é isento de IRPF?",
+      a: "Não. Tanto para Pessoa Física quanto para Pessoa Jurídica, o investimento segue a tabela regressiva de renda fixa, com o imposto recolhido na fonte. A alíquota varia de 22,5% (até 180 dias) a 15% (acima de 720 dias)."
     }
   ];
 

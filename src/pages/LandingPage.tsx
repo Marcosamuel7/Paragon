@@ -1,6 +1,8 @@
 import { Navbar } from "@/components/Navbar";
+import { PrintButton } from "@/components/PrintButton";
 import { Hero } from "@/components/sections/Hero";
 import { Thesis } from "@/components/sections/Thesis";
+import { AboutParagon } from "@/components/sections/AboutParagon";
 import { Returns } from "@/components/sections/Returns";
 import { Liquidity } from "@/components/sections/Liquidity";
 import { TaxTable } from "@/components/sections/TaxTable";
@@ -13,11 +15,13 @@ export default function LandingPage() {
       <main className="flex-1">
         <Hero />
         <Thesis />
+        <AboutParagon />
         <Returns />
         <Liquidity />
         <TaxTable />
       </main>
       <Footer />
+      <PrintButton />
     </div>
   );
 }
