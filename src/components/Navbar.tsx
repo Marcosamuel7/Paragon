@@ -50,6 +50,7 @@ export function Navbar() {
     { name: "Tributação", href: "tributacao", isHash: true },
     { name: "Tokenização", href: "/tokenizacao", isRoute: true },
     { name: "FAQ - Dúvidas", href: "/sobre", isRoute: true },
+    { name: "Contato", href: "contato", isHash: true },
   ];
 
   const linkClass = cn(
