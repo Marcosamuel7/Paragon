@@ -203,24 +203,26 @@ export function ReturnsComparison() {
           </p>
         </div>
 
-        <div className="h-[240px] sm:h-[300px] w-full mt-6">
+        {/* Scroll horizontal: mais espaço entre os meses para visualizar as curvas iniciais */}
+        <div className="overflow-x-auto -mx-2 px-2 mt-6">
+          <div className="min-w-[720px] md:min-w-[1080px] h-[350px] sm:h-[450px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={comparisonData} margin={{ top: 20, right: 16, left: -16, bottom: 0 }}>
+            <LineChart data={comparisonData} margin={{ top: 20, right: 16, left: -8, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={true} horizontal={true} stroke="#f1f5f9" />
               <XAxis
                 dataKey="label"
-                tick={{ fill: '#64748b', fontSize: 11 }}
-                tickMargin={10}
+                tick={{ fill: '#64748b', fontSize: 12 }}
+                tickMargin={12}
                 interval={0}
                 axisLine={{ stroke: '#cbd5e1' }}
               />
               <YAxis
                 tickFormatter={formatYAxisCurrency}
-                tick={{ fill: '#64748b', fontSize: 11 }}
-                tickMargin={6}
-                width={44}
-                domain={['auto', 'auto']}
-                tickCount={5}
+                tick={{ fill: '#64748b', fontSize: 12 }}
+                tickMargin={8}
+                width={48}
+                domain={['dataMin', 'dataMax']}
+                tickCount={6}
                 axisLine={false}
                 tickLine={false}
               />
@@ -268,6 +270,7 @@ export function ReturnsComparison() {
               />
             </LineChart>
           </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Cards de resultado final */}
@@ -379,14 +382,14 @@ export function ReturnsComparison() {
             <thead>
               <tr className="border-b border-slate-200 text-xs uppercase tracking-wider">
                 <th className="py-3 px-3 font-semibold text-slate-500 whitespace-nowrap text-left">Período</th>
-                <th className="py-3 px-3 font-semibold text-slate-400 text-right whitespace-nowrap">CDI</th>
-                <th className="py-3 px-3 font-semibold text-slate-400 text-right whitespace-nowrap">CDI acum.</th>
-                <th className="py-3 px-3 font-semibold text-slate-500 text-right whitespace-nowrap">Colina</th>
-                <th className="py-3 px-3 font-semibold text-slate-400 text-right whitespace-nowrap">Colina acum.</th>
-                <th className="py-3 px-3 font-semibold text-orange-600 text-right whitespace-nowrap">Alfa Sec</th>
-                <th className="py-3 px-3 font-semibold text-orange-600 text-right whitespace-nowrap">Alfa Sec acum.</th>
-                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">Consolidado AB Paragon</th>
-                <th className="py-3 px-3 font-semibold text-blue-600 text-right whitespace-nowrap">Consol. acum.</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">CDI</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">CDI acum.</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">Colina</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">Colina acum.</th>
+                <th className="py-3 px-3 font-semibold text-orange-600 text-center whitespace-nowrap">Alfa Sec</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">Alfa Sec acum.</th>
+                <th className="py-3 px-3 font-semibold text-blue-600 text-center whitespace-nowrap">Consolidado AB Paragon</th>
+                <th className="py-3 px-3 font-semibold text-slate-500 text-center whitespace-nowrap">Consol. acum.</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -399,30 +402,30 @@ export function ReturnsComparison() {
                     key={idx}
                     className={`transition-colors hover:bg-slate-50/50 ${yearClose ? "bg-slate-50" : ""}`}
                   >
-                    <td className="py-2.5 px-3 font-medium text-navy-800 whitespace-nowrap">{row.mes}</td>
-                    <td className="py-2.5 px-3 text-slate-400 text-right tabular-nums whitespace-nowrap">{m(row.cdi)}</td>
-                    <td className="py-2.5 px-3 text-slate-500 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.cdiAcum)}</td>
-                    <td className={`py-2.5 px-3 text-right tabular-nums whitespace-nowrap ${row.colina < 0 ? "text-rose-500" : "text-slate-500"}`}>{m(row.colina)}</td>
-                    <td className="py-2.5 px-3 text-slate-500 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.colinaAcum)}</td>
-                    <td className="py-2.5 px-3 text-orange-600 text-right tabular-nums whitespace-nowrap">{m(row.alfaSec)}</td>
-                    <td className="py-2.5 px-3 text-orange-600 font-semibold text-right tabular-nums whitespace-nowrap">{fmtPct(row.alfaAcum)}</td>
-                    <td className={`py-2.5 px-3 font-medium text-right tabular-nums whitespace-nowrap ${row.consolidado < 0 ? "text-rose-500" : "text-blue-600"}`}>{m(row.consolidado)}</td>
-                    <td className="py-2.5 px-3 text-blue-600 font-bold text-right tabular-nums whitespace-nowrap">{fmtPct(row.consAcum)}</td>
+                    <td className="py-2.5 px-3 font-medium text-slate-700 whitespace-nowrap text-left">{row.mes}</td>
+                    <td className="py-2.5 px-3 text-slate-600 text-center tabular-nums whitespace-nowrap">{m(row.cdi)}</td>
+                    <td className="py-2.5 px-3 text-slate-700 font-semibold text-center tabular-nums whitespace-nowrap">{fmtPct(row.cdiAcum)}</td>
+                    <td className={`py-2.5 px-3 text-center tabular-nums whitespace-nowrap ${row.colina < 0 ? "text-rose-500" : "text-slate-600"}`}>{m(row.colina)}</td>
+                    <td className="py-2.5 px-3 text-slate-700 font-semibold text-center tabular-nums whitespace-nowrap">{fmtPct(row.colinaAcum)}</td>
+                    <td className="py-2.5 px-3 text-orange-600 text-center tabular-nums whitespace-nowrap">{m(row.alfaSec)}</td>
+                    <td className="py-2.5 px-3 text-slate-700 font-semibold text-center tabular-nums whitespace-nowrap">{fmtPct(row.alfaAcum)}</td>
+                    <td className={`py-2.5 px-3 text-center tabular-nums whitespace-nowrap ${row.consolidado < 0 ? "text-rose-500" : "text-blue-600"}`}>{m(row.consolidado)}</td>
+                    <td className="py-2.5 px-3 text-slate-700 font-semibold text-center tabular-nums whitespace-nowrap">{fmtPct(row.consAcum)}</td>
                   </tr>
                 );
               })}
             </tbody>
             <tfoot>
               <tr className="border-t-2 border-slate-200 bg-blue-50/40 font-bold">
-                <td className="py-3.5 px-3 text-navy-900 whitespace-nowrap">Acumulado</td>
-                <td className="py-3.5 px-3 text-right text-slate-400"></td>
-                <td className="py-3.5 px-3 text-right text-slate-500 tabular-nums whitespace-nowrap">{fmtPct(totals.cdiAcum)}</td>
-                <td className="py-3.5 px-3 text-right text-slate-400"></td>
-                <td className="py-3.5 px-3 text-right text-slate-500 tabular-nums whitespace-nowrap">{fmtPct(totals.colinaAcum)}</td>
-                <td className="py-3.5 px-3 text-right text-slate-400"></td>
-                <td className="py-3.5 px-3 text-right text-orange-600 tabular-nums whitespace-nowrap">{fmtPct(totals.alfaAcum)}</td>
-                <td className="py-3.5 px-3 text-right text-slate-400"></td>
-                <td className="py-3.5 px-3 text-right text-blue-700 tabular-nums whitespace-nowrap">{fmtPct(totals.consAcum)}</td>
+                <td className="py-3.5 px-3 text-navy-900 whitespace-nowrap text-left">Acumulado</td>
+                <td className="py-3.5 px-3 text-center text-slate-400"></td>
+                <td className="py-3.5 px-3 text-center text-slate-700 tabular-nums whitespace-nowrap">{fmtPct(totals.cdiAcum)}</td>
+                <td className="py-3.5 px-3 text-center text-slate-400"></td>
+                <td className="py-3.5 px-3 text-center text-slate-700 tabular-nums whitespace-nowrap">{fmtPct(totals.colinaAcum)}</td>
+                <td className="py-3.5 px-3 text-center text-slate-400"></td>
+                <td className="py-3.5 px-3 text-center text-slate-700 tabular-nums whitespace-nowrap">{fmtPct(totals.alfaAcum)}</td>
+                <td className="py-3.5 px-3 text-center text-slate-400"></td>
+                <td className="py-3.5 px-3 text-center text-slate-700 tabular-nums whitespace-nowrap">{fmtPct(totals.consAcum)}</td>
               </tr>
             </tfoot>
           </table>
